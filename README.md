@@ -295,17 +295,6 @@ more games per iteration) — see below — not simply more iterations.
 Checkpoints bundle model + optimizer + replay buffer, so a future run can resume from
 the latest `iter_NNNN.pt` by re-running `train.py` with a larger `--iterations`.
 
-## Possible extensions
-
-Deliberately left out, in rough priority order:
-
-- **More MCTS speed**: subtree reuse across moves, and leaf parallelization within a
-  single tree (virtual loss). Cross-game batched evaluation is already done (the big
-  win); these are the remaining levers. The search still rebuilds the tree each move
-  — chosen for clarity over throughput.
-- A lightweight web app to play against the trained network (a separate project).
-- Tournament ELO tracking across checkpoints; hyperparameter sweeps.
-
 ## Acknowledgements
 
 Perfect-play evaluation uses [Pascal Pons's Connect Four solver](https://github.com/PascalPons/connect4)
