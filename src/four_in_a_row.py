@@ -130,6 +130,10 @@ def main() -> None:
         # the board near ~62vh tall, leaving room for the title/buttons above it.
         ".block-container,[data-testid='stMainBlockContainer']"
         "{max-width:min(560px,72vh)!important;}"
+        # Keep the 7 drop buttons in a single non-wrapping row on mobile.
+        "[data-testid='stHorizontalBlock']{flex-wrap:nowrap!important;gap:2px!important;}"
+        "[data-testid='stColumn']{min-width:0!important;padding:0 1px!important;}"
+        "[data-testid='stColumn'] button{padding:0.3rem 0!important;font-size:1rem!important;min-width:0!important;}"
         # Bigger, chunkier "New game" button in the sidebar.
         "section[data-testid='stSidebar'] div[data-testid='stButton'] button p"
         "{font-size:1.15rem;font-weight:700;}"
