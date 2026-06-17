@@ -16,11 +16,12 @@ from pathlib import Path
 # `streamlit run src/four_in_a_row.py` puts src/ on sys.path, not the project root.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import numpy as np
 import streamlit as st
 import torch
 
 from src.game import COLS, P1, P2, ROWS, new_game
-from src.mcts import MCTSPlayer
+from src.mcts import MCTSConfig, run_mcts, visit_distribution
 from src.model import ConnectFourNet
 
 MODEL_PATH = Path(__file__).resolve().parent.parent / "four_in_a_row.pt"
@@ -29,7 +30,7 @@ DISC = {0: "⚪", P1: "🔴", P2: "🟡"}
 CELL_COLOR = {0: "#fdfdfd", P1: "#e23b2e", P2: "#f4c430"}  # empty hole, player 1, player 2
 SCORE_COLOR = {P1: "#e23b2e", P2: "#d4a017"}  # scoreboard number text (gold darkened for contrast)
 BOARD_BLUE = "#2d7ff0"
-DIFFICULTY = {"Easy": 50, "Medium": 300, "Hard": 800}  # label -> search effort
+DIFFICULTY = {"Easy": (50, 2.0), "Medium": (300, 0.5), "Hard": (800, 0.0)}  # label -> (sims, temperature)
 
 
 def winning_cells(board) -> set:
@@ -153,7 +154,7 @@ def main() -> None:
                                      selection_mode="single") or "You"
         new_clicked = st.button("New game", use_container_width=True, type="primary")
 
-    sims = DIFFICULTY[diff]
+    sims, temperature = DIFFICULTY[diff]
     ai_player = P2 if first == "You" else P1
     human_player = P1 if ai_player == P2 else P2
 
@@ -221,7 +222,9 @@ def main() -> None:
     # --- Computer's move: made after your disc is on screen, so moves are sequenced ---
     if ai_turn:
         with st.spinner("Thinking…"):
-            move = MCTSPlayer(model, DEVICE, num_simulations=sims).choose(board)
+            counts = run_mcts(model, board, DEVICE, MCTSConfig(num_simulations=sims), add_noise=False)
+            probs = visit_distribution(counts, temperature)
+            move = int(np.random.choice(len(probs), p=probs))
         st.session_state.board = board.play(move)
         st.rerun()
 
