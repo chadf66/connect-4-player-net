@@ -312,5 +312,4 @@ Perfect-play evaluation uses [Pascal Pons's Connect Four solver](https://github.
 (vendored under `third_party/connect4-solver/`, see its LICENSE).
 </content>
 </invoke>
-# connect-4-player-net
-# connect-4-player-network
+

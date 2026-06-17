@@ -147,7 +147,7 @@ def main() -> None:
 
     # --- Sidebar: game preferences ---
     with st.sidebar:
-        st.header("Game")
+        st.header("Game Settings")
         diff = st.segmented_control("Difficulty", list(DIFFICULTY), default="Medium",
                                     selection_mode="single") or "Medium"
         first = st.segmented_control("Who moves first?", ["You", "Computer"], default="You",
@@ -218,6 +218,15 @@ def main() -> None:
             "- Your opponent is a neural network that learned entirely by playing against "
             "itself — no human games — guided by Monte Carlo Tree Search."
         )
+
+    # --- Attribution ---
+    st.sidebar.markdown(
+        "<div style='font-size:0.75rem;color:#9aa0a6;margin-top:0.5rem;'>"
+        "Built by Chad Faulkner · "
+        "<a href='https://github.com/chadf66/connect-4-player-net' style='color:#9aa0a6;'>GitHub</a>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
 
     # --- Computer's move: made after your disc is on screen, so moves are sequenced ---
     if ai_turn:
