@@ -313,3 +313,4 @@ Perfect-play evaluation uses [Pascal Pons's Connect Four solver](https://github.
 </content>
 </invoke>
 # connect-4-player-net
+# connect-4-player-network
