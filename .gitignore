@@ -1,0 +1,31 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv/
+
+# pytest
+.pytest_cache/
+
+# Training artifacts (regeneratable; final model is committed at repo root)
+checkpoints/iter_*.pt
+checkpoints/metrics.jsonl
+checkpoints/train.log
+checkpoints/*.pkl
+
+# Pascal Pons solver build artifacts (run `make` in third_party/connect4-solver to rebuild)
+third_party/connect4-solver/*.o
+third_party/connect4-solver/c4solver
+third_party/connect4-solver/generator
+third_party/connect4-solver/.depend
+third_party/connect4-solver/7x6.book
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/

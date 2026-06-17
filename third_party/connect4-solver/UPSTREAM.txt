@@ -1,0 +1,2 @@
+Upstream: https://github.com/PascalPons/connect4
+Vendored at commit: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
